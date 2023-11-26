@@ -25,6 +25,7 @@ jobs:
       - name: Set up Git
         env:
           GPG_TTY: $(tty)
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
           git config commit.gpgsign true
           git config user.signingkey $GPG_KEY_ID
