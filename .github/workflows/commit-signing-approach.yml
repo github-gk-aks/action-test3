@@ -38,3 +38,5 @@ jobs:
           git add README.md
           git commit  -m "chore: update README.md"
           git push
+        env:
+            GPG_TTY: $(tty)  
