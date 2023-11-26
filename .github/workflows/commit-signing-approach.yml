@@ -30,7 +30,7 @@ jobs:
           git config --global user.name ${{ secrets.GIT_COMMITTER_NAME }}
           echo "This is an updated readme." >> README.md
           git add README.md
-          git commit -S -m "chore: update README.md" -S signature.gpg
+          git commit -S -m "chore: update README.md"
           gpg --batch --pinentry-mode loopback --passphrase-fd 0 --armor --detach-sign -o signature.gpg
           git push
        
