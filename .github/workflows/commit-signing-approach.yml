@@ -16,7 +16,7 @@ jobs:
       - name: Import GPG key
         run: |
           gpg --version
-          
+          cd $GITHUB_WORKSPACE
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --yes --no-tty
           export GPG_TTY=$(tty)
