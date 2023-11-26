@@ -17,6 +17,7 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
+          GPG_TTY: $(tty)
         run: |
           echo "${GPG_PRIVATE_KEY}" | gpg --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust
