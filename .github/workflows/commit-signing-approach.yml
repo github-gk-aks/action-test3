@@ -42,9 +42,7 @@ jobs:
             git add README.md
             git commit -m "Testing the commit with different approach"
             git push # Replace 'branch-name' with the branch name
-        working-directory: ${{ github.workspace }}
         env:
-            GITHUB_TOKEN: ${{ secrets.GK_PAT }}
             GPG_KEY_PASSPHRASE: ${{ secrets.PASSPHRASE }}
 
         
