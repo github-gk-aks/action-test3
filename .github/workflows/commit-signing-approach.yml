@@ -19,7 +19,6 @@ jobs:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
-          export GPG_TTY=$(tty)
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --yes
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
