@@ -20,7 +20,7 @@ jobs:
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
 
-          echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
+          echo "${GPG_PRIVATE_KEY}" | gpg --batch --import --no-tty
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --no-tty
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
