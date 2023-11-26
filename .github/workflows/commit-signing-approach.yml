@@ -25,7 +25,8 @@ jobs:
           
           export GPG_TTY=$(tty)
 
-          echo "test" | gpg --clearsign  
+          echo "test" > file.txt
+          gpg --clearsign  file.txt
         env:
             GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
             PASSPHRASE: ${{ secrets.PASSPHRASE }}
