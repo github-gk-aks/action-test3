@@ -16,10 +16,11 @@ jobs:
       - name: Import GPG key
         run: |
           gpg --version
-          echo "test" | gpg --clearsign  
+          
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --yes --no-tty
           export GPG_TTY=$(tty)
+          echo "test" | gpg --clearsign  
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           gpg-connect-agent reloadagent /bye
