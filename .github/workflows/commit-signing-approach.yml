@@ -20,6 +20,8 @@ jobs:
           GPG_TTY: $(tty)
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
+          echo "allow-loopback-pinentry" >> $HOME/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> $HOME/.gnupg/gpg.conf
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust
           git config commit.gpgsign true
