@@ -20,19 +20,7 @@ jobs:
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --yes --no-tty
           export GPG_TTY=$(tty)
           echo "test" | gpg --clearsign  
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-          gpg-connect-agent reloadagent /bye
-          gpg-connect-agent updatestartuptty /bye >/dev/null
-          git config commit.gpgsign true
-          git config user.signingkey $GPG_KEY_ID
-          git config --global user.email ${{ secrets.GIT_COMMITTER_EMAIL }}
-          git config --global user.name ${{ secrets.GIT_COMMITTER_NAME }}
-          echo "This is an updated readme." >> README.md
-          git add README.md
-          git commit -S -m "chore: update README.md"
-          gpg --batch --pinentry-mode loopback --passphrase-fd 0 --armor --detach-sign -o signature.gpg
-          git push
+
         env:
             GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
             PASSPHRASE: ${{ secrets.PASSPHRASE }}
