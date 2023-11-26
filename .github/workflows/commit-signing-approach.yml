@@ -36,5 +36,5 @@ jobs:
         run: |
           echo "This is an updated readme." >> README.md
           git add README.md
-          git commit -S -m "chore: update README.md"
+          git commit  -m "chore: update README.md"
           git push
