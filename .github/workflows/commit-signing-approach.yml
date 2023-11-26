@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Update system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade -y   
+
       - name: Import GPG key
         run: |
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
