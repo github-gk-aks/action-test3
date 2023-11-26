@@ -28,9 +28,10 @@ jobs:
           git config user.signingkey $GPG_KEY_ID
           git config --global user.email ${{ secrets.GIT_COMMITTER_EMAIL }}
           git config --global user.name ${{ secrets.GIT_COMMITTER_NAME }}
+          echo "${PASSPHRASE}" | gpg --batch --pinentry-mode loopback --passphrase-fd 0 --armor --detach-sign -o signature.gpg -
           echo "This is an updated readme." >> README.md
           git add README.md
-          git commit -S -m "chore: update README.md" 
+          git commit -S -m "chore: update README.md" -S signature.gpg
           git push
        
 
