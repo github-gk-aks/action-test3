@@ -21,7 +21,7 @@ jobs:
 
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
 
-          echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust
+          echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback
           
           export GPG_TTY=$(tty)
 
