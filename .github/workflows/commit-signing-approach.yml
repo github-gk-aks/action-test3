@@ -38,5 +38,6 @@ jobs:
           git add README.md
           git commit  -m "chore: update README.md"
           git push
+        working-directory: ${{ github.workspace }}
         env:
             GPG_TTY: $(tty)  
