@@ -36,6 +36,6 @@ jobs:
         run: |
           echo "This is an updated readme." >> README.md
           git add README.md
-          GPG_TTY=$(tty) git -c gpg.program=gpg --no-pager commit -S -m "chore: update README.md" --gpg-sign=$GPG_KEY_ID
+          GPG_TTY=$(tty) git -c gpg.program=gpg --no-pager commit -S -m "chore: update README.md" --gpg-sign=$GPG_KEY_ID --batch --no-tty
           git push
  
