@@ -17,16 +17,11 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
-        run: |
-          echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
-          echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust
-        
-
-      - name: Set up Git and commit
-        env:
           GPG_TTY: $(tty)
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
+          echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
+          echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust
           git config commit.gpgsign true
           git config user.signingkey $GPG_KEY_ID
           git config --global user.email ${{ secrets.GIT_COMMITTER_EMAIL }}
@@ -35,6 +30,8 @@ jobs:
           git add README.md
           git commit -S -m "chore: update README.md" 
           git push
+       
+
 
 
  
