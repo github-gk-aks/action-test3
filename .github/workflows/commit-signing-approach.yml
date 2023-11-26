@@ -14,15 +14,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Import GPG key
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-          PASSPHRASE: ${{ secrets.PASSPHRASE }}
-          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
         run: |
           echo "${GPG_PRIVATE_KEY}" | gpg --batch --import
           echo "${PASSPHRASE}" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --import-ownertrust --yes
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           git config commit.gpgsign true
           git config user.signingkey $GPG_KEY_ID
           git config --global user.email ${{ secrets.GIT_COMMITTER_EMAIL }}
@@ -32,7 +26,11 @@ jobs:
           git commit -S -m "chore: update README.md"
           gpg --batch --pinentry-mode loopback --passphrase-fd 0 --armor --detach-sign -o signature.gpg
           git push
-       
+        env:
+            GPG_TTY: $(tty)
+            GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+            PASSPHRASE: ${{ secrets.PASSPHRASE }}
+            GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
 
 
 
