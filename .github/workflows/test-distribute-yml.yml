@@ -77,9 +77,9 @@ jobs:
             for file in files/*.yml; do
                 workflow_file=".github/workflows/$(basename "$file")"
                 echo "wofkflow_file"
-                echo "repo"
-                echo "owner"
-                echo "branch"
+                echo "$repo"
+                echo "$owner"
+                echo "$branch"
                 existing_file=$(curl -s -o /dev/null -w "%{http_code}" \
                 -H "Accept: application/vnd.github+json" \
                 -H "Authorization: Bearer ${{ secrets.GK_PAT }}" \
@@ -89,7 +89,7 @@ jobs:
                 # If the HTTP status code is 404 (Not Found), proceed to create it
                 if [ "$existing_file" -eq 404 ]; then
                   echo "File does not exist. Creating..."
-                  echo "existing_file"
+                  echo "$existing_file"
                 else
                   echo "File already exists. Skipping..."
                 fi
