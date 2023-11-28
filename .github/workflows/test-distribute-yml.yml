@@ -49,10 +49,11 @@ jobs:
 
             for file in files/*.yml; do
               workflow_file=".github/workflows/$(basename "$file")"
-              existing_file=$(curl -s -H "Accept: application/vnd.github.v3+json" \
+              existing_file=$(curl -L -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer ${{ secrets.GK_PAT }}" \
               -H "X-GitHub-Api-Version: 2022-11-28" \
               "https://api.github.com/repos/$owner/$repo/contents/$workflow_file?ref=$branch")
+
               echo "$existing_file"
             done
 
