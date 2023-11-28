@@ -89,6 +89,7 @@ jobs:
                 # If the HTTP status code is 404 (Not Found), proceed to create it
                 if [ "$existing_file" -eq 404 ]; then
                   echo "File does not exist. Creating..."
+                  echo "existing_file"
                 else
                   echo "File already exists. Skipping..."
                 fi
