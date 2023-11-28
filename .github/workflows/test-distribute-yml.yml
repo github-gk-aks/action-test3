@@ -50,8 +50,9 @@ jobs:
                     
             const branch = 'github-migration';
         
-            for (const file of ['files/github-rest-api1111.yml']) {
-                const workflow_file = `.github/workflows/${file}`;
+            for (const filePath of ['files/github-rest-api1111.yml']) {
+                const fileName = filePath.split('/').pop(); // Extracts only the file name
+                const workflow_file = `.github/workflows/${fileName}`
                 const response = await github.rest.repos.getContent({
                   owner: owner,
                   repo: repo,
