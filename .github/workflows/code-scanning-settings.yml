@@ -21,6 +21,6 @@ jobs:
           current_settings=$(curl -s -H "Authorization: Bearer $token" \
           "https://api.github.com/repos/$owner/$repo/code-scanning/settings")
 
-          echo "$current_settings" | jq '.pull_request = { severity_threshold: "high" }')
+          echo "$current_settings" 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
