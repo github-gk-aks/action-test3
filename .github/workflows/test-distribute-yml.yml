@@ -45,7 +45,7 @@ jobs:
             owner='${{ fromJSON(github.event.issue.body)[matrix.repository].organisation }}'
             echo "Processing repository: $owner/$repo"
             
-            branch="main"
+            branch="github-migration"
 
             for file in files/*.yml; do
               workflow_file=".github/workflows/$(basename "$file")"
