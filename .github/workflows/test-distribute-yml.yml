@@ -75,7 +75,7 @@ jobs:
             branch="github-migration"
 
             for file in files/*.yml; do
-                workflow_file=".github/workflows/$(basename "$file")"
+                workflow_file=`.github/workflows/$(basename "$file")`
                 echo "$wofkflow_file"
                 echo "$repo"
                 echo "$owner"
