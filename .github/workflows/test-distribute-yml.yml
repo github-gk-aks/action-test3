@@ -53,6 +53,10 @@ jobs:
             for (const filePath of ['files/github-rest-api1111.yml']) {
                 const fileName = filePath.split('/').pop(); // Extracts only the file name
                 const workflow_file = `.github/workflows/${fileName}`
+
+                console.log(`Workflow File: ${workflow_file}`);
+                console.log(`File Name: ${fileName}`);
+
                 const response = await github.rest.repos.getContent({
                   owner: owner,
                   repo: repo,
@@ -60,6 +64,6 @@ jobs:
                   ref: branch
                 });
                 console.log(response.data);
-                }
+            }
           
 
