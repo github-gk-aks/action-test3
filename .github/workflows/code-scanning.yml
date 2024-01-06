@@ -1,4 +1,4 @@
-name: Configure Code Scanning Severity
+name: My Action
 
 on:
   push:
@@ -6,26 +6,33 @@ on:
       - main
 
 jobs:
-  configure-code-scanning:
+  my-job:
+    
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Configure Code Scanning Severity
-      run: |
-        REPO_OWNER=github-gk-aks
-        REPO_NAME=action-test3
-        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
 
-        # Define the severity level you want to set
-        SEVERITY_LEVEL=all
-
-        # Configure code scanning severity using GitHub REST API
-        curl -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: Bearer $GITHUB_TOKEN" \
-          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/settings/code_scanning/set_security_severity?security_severity=$SEVERITY_LEVEL"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Make HTTP request
+        uses: actions/http-client@v2.2.0
+        with:
+          url: https://api.github.com/repos/owner/repo/code-scanning/alerts/settings
+          method: PUT
+          headers: |
+            {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer ${{ secrets.TOKEN }}"
+            }
+          body: |
+            {
+              "code_scanning": {
+                "alert_severity": "high"
+              }
+            }
+      - name: Log response status code
+        run: echo ${{ steps.http-client.outputs.status-code }}
